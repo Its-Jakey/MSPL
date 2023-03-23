@@ -25,6 +25,7 @@ The source of MSPL shoud be Downloaded using the master branch only:
 ## How to build
 
 MSPL needs rustc and cargo to build, start by installing rust from [here](https://bit.ly/3JBBKAd) if you haven't already.
+
 Compile the source with make:
 
     $ make
