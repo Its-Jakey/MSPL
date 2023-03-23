@@ -1,8 +1,18 @@
 use std::collections::HashMap;
+use std::{env, fs};
 
 struct Token {
     id: String,
     value: String,
+}
+
+impl Clone for Token {
+    fn clone(&self) -> Token {
+        return Token {
+            id: self.id.clone(),
+            value: self.value.clone()
+        };
+    }
 }
 
 fn scan(pattern: &str, chars: &mut Vec<char>, idx: &mut i32, len: i32) -> String {
@@ -60,6 +70,16 @@ fn tokenize(code: String) -> Vec<Token> {
             idx += 1;
         } else if " \n\t\r".contains(cur) {
             idx += 1;
+        } else if cur == '\'' {
+            let char = *chars.get((idx + 1) as usize).unwrap();
+
+            ret.push(
+                Token {
+                    id: String::from("number"),
+                    value: (char as u8).to_string()
+                }
+            );
+            idx += 3;
         } else {
             eprintln!("Unexpected char {cur}");
             idx += 1;
@@ -69,12 +89,35 @@ fn tokenize(code: String) -> Vec<Token> {
     return ret;
 }
 
+fn scan_block(tokens: &Vec<Token>, idx: &mut i32) -> Vec<Token> {
+    let mut ret: Vec<Token> = Vec::new();
+    let mut level: i32 = 1;
+
+    while level > 0 {
+        let cur = (*tokens.get(*idx as usize).unwrap()).clone();
+        *idx += 1;
+        //println!("[type={}, value={}]", cur.id, cur.value);
+
+        if cur.id.as_str() == "{" {
+            level += 1;
+        } else if (cur).id.as_str() == "}" {
+            level -= 1;
+
+            if level == 0 {
+                return ret;
+            }
+        }
+        ret.push(cur);
+    }
+    return ret;
+}
+
 fn run(tokens: &Vec<Token>, stack: &mut Vec<i32>, functions: &mut HashMap<String, Vec<Token>>, memory: &mut [i32; 65536], running: &mut bool) {
     let mut idx: i32 = 0;
     let len: i32 = tokens.len() as i32;
 
     while *running && idx < len {
-        let ref cur= *(*tokens).get(idx as usize).unwrap();
+        let ref cur = *(*tokens).get(idx as usize).unwrap();
         idx += 1;
 
         match (*cur).id.as_str() {
@@ -113,9 +156,20 @@ fn run(tokens: &Vec<Token>, stack: &mut Vec<i32>, functions: &mut HashMap<String
                     "cr" => {
                         println!();
                     }
+                    "def" => {
+                        let name = (*(*tokens).get(idx as usize).unwrap()).value.clone();
+                        idx += 2;
+                        let block = scan_block(tokens, &mut idx);
+                        functions.insert(name.clone(), block);
+                    }
                     _ => {
-                        *running = false;
-                        println!("Unexpected symbol \"{}\"", (*cur).value.as_str())
+                        if !functions.contains_key((*cur).value.as_str()) {
+                            *running = false;
+                            println!("Unknown symbol {}", (*cur).value.as_str());
+                            return;
+                        }
+                        let clone_functions = functions.clone();
+                        run(clone_functions.get((*cur).value.as_str()).unwrap(), stack, functions, memory, running);
                     }
                 }
             }
@@ -164,14 +218,17 @@ fn run(tokens: &Vec<Token>, stack: &mut Vec<i32>, functions: &mut HashMap<String
 }
 
 fn main() {
-    let code: String = String::from("4 dup + print");
-    let tokens: Vec<Token> = tokenize(code);
-    println!("Tokens: ");
+    let args: Vec<_> = env::args().collect();
 
-    for tok in tokens.iter() {
-        println!("[type={}, value={}]", (*tok).id, (*tok).value);
+    if args.len() < 2 || args.len() > 2 {
+        eprintln!("1 argument expected (input file), got {} instead.", args.len() - 1);
+        return;
     }
-    println!();
+
+    let filepath = (*args.get(1).unwrap()).clone();
+
+    let code: String = fs::read_to_string(filepath).expect("Failed to read input file");
+    let tokens: Vec<Token> = tokenize(code);
 
     let mut stack: Vec<i32> = Vec::new();
     let mut functions: HashMap<String, Vec<Token>> = HashMap::new();

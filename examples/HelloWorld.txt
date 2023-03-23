@@ -1,0 +1,4 @@
+def say_hi {
+    'm' 'o' 'm' ' ' 'i' 'h' emit emit emit emit emit emit cr
+}
+say_hi

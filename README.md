@@ -2,7 +2,7 @@
 
 MSPL is an interpreted stack-based programming language designed 
 to have a very simple interpreter while still retaining plenty 
-of functionality. MSPL was loosly inspired by the Forth programming 
+of functionality. MSPL was loosely inspired by the Forth programming 
 language.
 
 ## Features of MSPL
@@ -11,16 +11,16 @@ language.
 * No Error Handling
 * Limited Memory
 * Limited IO
-* 32-Bit Varibles
+* 32-Bit Variables
 * Written In Rust
 
 ## How to get MSPL
 
 ### Download with Git
 
-The source of MSPL shoud be Downloaded using the master branch only:
+The source of MSPL should only be Downloaded using the offical master branch:
 
-    $ git clone [https://github.com/ruby/ruby.git](https://github.com/Its-Jakey/MSPL.git)
+    $ git clone https://github.com/Its-Jakey/MSPL.git
 
 ## How to build
 
@@ -30,7 +30,7 @@ Compile the source with make:
 
     $ make
 
-## Documentation
+## Documentation/Usage
 
 [//]: # ([English]())
 
