@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-use std::{env, fs};
+use std::{env, fs, io};
 
 struct Token {
     id: String,
@@ -161,6 +161,14 @@ fn run(tokens: &Vec<Token>, stack: &mut Vec<i32>, functions: &mut HashMap<String
                         idx += 2;
                         let block = scan_block(tokens, &mut idx);
                         functions.insert(name.clone(), block);
+                    }
+                    "in" => {
+                        let mut input_line = String::new();
+                        io::stdin()
+                            .read_line(&mut input_line)
+                            .expect("Failed to read line");
+                        let x: i32 = input_line.trim().parse().expect("Input not an integer");
+                        (*stack).push(x);
                     }
                     _ => {
                         if !functions.contains_key((*cur).value.as_str()) {

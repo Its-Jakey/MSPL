@@ -21,13 +21,11 @@ Pushing values to the stack is very easy, to push a number to the stack just ent
 ### Stack manipulation
 There are a total of 16 operators in MSPL.
 
-7 boolean operators:  >, <, >=, <=, ==, &&, || 
+- 7 boolean operators:  >, <, >=, <=, ==, &&, ||
+- 5 bitwise operators:  >>, <<, &, |, ^
+- 4 arithmetic operators: +, -, *, /
 
-5 bitwise operators:  >>, <<, &, |, ^ 
-
-and 4 arithmetic operators: +, -, *, /
-
-These operators when used will pop the top 2 values off of the stack, perform there operation on them, then push the result back onto the stack. The operators can be used at any time by just typing an operator like:
+These operators perform on the top 2 values of the stack and then pushes the result. The operators can be used at any time by just typing an operator like:
 
     5 4 3 + * // Adds 4 plus 3 and pushes the result (7), multiplies 5 and 7 and pushes (35)
 
@@ -54,6 +52,7 @@ The interpreter already comes with a few functions defined.
 5. 'print': Pops the stack and prints the integer form of that value
 6. 'emit': Pops the stack and prints the ASCII form of that value
 7. 'cr': Prints a newline character
+8. 'in': Reads a number from stdin and pushes it to the stack
 
 ## Memory management
 The MSPL interpreter currently has only 65536 words of memory, each word is a 32-bit signed value.
