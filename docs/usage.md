@@ -6,7 +6,7 @@ There are no flags, just a filepath as input.
 
 To run a file, invoke the interpreter with this command (linux):
 
-    $ ./mspl [FILE_TO_RUN'
+    $ ./mspl [FILE_TO_RUN]
 
 ## The Stack
 MSPL is a stack-based language, but what does that mean exacly?
