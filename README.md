@@ -10,7 +10,7 @@ language.
 * Very Simple Syntax
 * No Error Handling
 * Limited Memory
-* File IO
+* Limited IO
 * 32-Bit Varibles
 * Written In Rust
 
