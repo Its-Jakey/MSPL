@@ -31,7 +31,7 @@ Compile the source with make:
 
 ## Documentation
 
-[comment]: <> ([English](https://docs.ruby-lang.org/en/master/index.html))
+[//]: # ([English](https://docs.ruby-lang.org/en/master/index.html))
 
 ## Feedback
 
@@ -39,6 +39,6 @@ Bugs should be reported in the "Issues" section of this repo
 
 ## The Author
 
-MSPPL was originally designed and developed by Jacob Maxwell in 2023.
+MSPL was originally designed and developed by Jacob Maxwell in 2023.
 
 <jacob.scriptsjava@outlook.com>
