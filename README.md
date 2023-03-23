@@ -32,7 +32,7 @@ Compile the source with make:
 
 ## Documentation/Usage
 
-[//]: # ([English]())
+ - [English](docs/usage.md)
 
 ## Feedback
 
