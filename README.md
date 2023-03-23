@@ -5,7 +5,7 @@ to have a very simple interpreter while still retaining plenty
 of functionality. MSPL was loosly inspired by the Forth programming 
 language.
 
-## Features of Ruby
+## Features of MSPL
 
 * Very Simple Syntax
 * No Error Handling
@@ -18,7 +18,7 @@ language.
 
 ### Download with Git
 
-The mirror of the Ruby source tree can be checked out with the following command:
+The source of MSPL shoud be Downloaded using the master branch only:
 
     $ git clone [https://github.com/ruby/ruby.git](https://github.com/Its-Jakey/MSPL.git)
 
@@ -31,7 +31,7 @@ Compile the source with make:
 
 ## Documentation
 
-[//]: # ([English](https://docs.ruby-lang.org/en/master/index.html))
+[//]: # ([English]())
 
 ## Feedback
 
